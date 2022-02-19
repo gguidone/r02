@@ -6,12 +6,12 @@
 void ft_putchar(char c);
 void ft_putstr(char *str);
 int ft_strlen(char *str);
-char *find_head(char *str);
+void find_head(char *str);
 void split_str(char *str);
 void read_num_threesome(char *str);
 int teenager(char a);
 void final_split(char *str, int z);
-
-
+void split_head(char *str);
+void parse_to_search(char *str);
 
 #endif
