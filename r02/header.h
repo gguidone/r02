@@ -3,15 +3,14 @@
 
 #include <unistd.h>
 
-void ft_putchar(char c);
-void ft_putstr(char *str);
+int str_is_zero(char *str);
+void    divide_string(char *str);
+void    subdivide(char *str);
+char *associate_three(int distance, char c);
+char *associate_base_ten(int distance);
+char *unite_two(char c1, char c2);
 int ft_strlen(char *str);
-void find_head(char *str);
-void split_str(char *str);
-void read_num_threesome(char *str);
-int teenager(char a);
-void final_split(char *str, int z);
-void split_head(char *str);
-void parse_to_search(char *str);
+void ft_putstr(char *str);
+int	ft_strcmp(char *s1, char *s2);
 
 #endif

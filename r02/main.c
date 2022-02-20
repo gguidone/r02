@@ -13,8 +13,7 @@ int main(int argc, char **argv)
         ft_putstr("Error\n");
         return (0);
     }
-    find_head(argv[1]);
-    split_str(argv[1]);
+    divide_string(argv[1]);
     return (0);
 }
 //1000000000000000000000000000000000000

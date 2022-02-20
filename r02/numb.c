@@ -1,199 +1,152 @@
 #include "header.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 
-void final_split(char *str, int z)
+int str_is_zero(char *str)
 {
     int i;
-    int j;
-    char *temp;
 
     i = 0;
-    temp = (char *)malloc(ft_strlen(str) - i);
-    j = 0;
-    while (j < z)
+    while (str[i] != '\0')
     {
-        temp[j] = str[j + i];
-        j++;
-    }
-    while (j < ft_strlen(str) - i)
-    {
-        temp[j] = '0';
-        j++;
-    }
-    temp[j] = '\0';
-    parse_to_search(temp);
-    free(temp);
-}
-
-int teenager(char a)
-{
-    if (a == '1')
-    {
-        return (1);
-    }
-    
-    return (0);   
-}
-
-void read_num_threesome(char *str)
-{
-    int i;
-    int j;
-    char *temp;
-
-    i = 0;
-    while (i < 3)
-    {
-        temp = (char *)malloc(ft_strlen(str) - i);
         if (str[i] != '0')
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+char *associate_base_ten(int distance)
+{
+    char *str = malloc(distance + 2);
+    int i;
+
+    i = 1;
+    str[0] = '1';
+    while (i < distance + 1)
+    {
+        str[i] = '0';
+        i++;
+    }
+    str[i] = '\0';
+    return (str);
+}
+
+char *associate_three(int distance, char c)
+{
+    char *str = malloc(distance + 2);
+    int i;
+
+    i = 1;
+    str[0] = c;
+    while (i < distance + 1)
+    {
+        str[i] = '0';
+        i++;
+    }
+    str[i] = '\0';
+    return (str);
+}
+
+char *unite_two(char c1, char c2)
+{
+    char *str;
+
+    str = malloc(3);
+    str[0] = c1;
+    str[1] = c2;
+    str[2] = '\0';
+    return (str);
+}
+
+void    subdivide(char *str)
+{
+    int distance;
+    int i;
+
+    i = 0;
+    distance = ft_strlen(str) - 1;
+    while (str[i] != '\0')
+    {
+        if (i == 1 && str[i] == '1')
+        {
+            if (!str_is_zero(unite_two(str[i], str[i + 1])))
+                printf("num : %s\n",  unite_two(str[i], str[i + 1]));
+        }
+        else
+        {
+            if (!str_is_zero((associate_three(distance, str[i]))))
+                printf("num : %s\n", (associate_three(distance, str[i])));           
+        }
+
+        i++;
+        distance--;
+    }
+}
+
+
+void    divide_string(char *str)
+{
+    char *temp;
+    int i;
+    int j;
+    int distance;
+
+    i = 0;
+    if (ft_strlen(str) % 3 == 0)
+    {
+        while (str[i] != '\0')
         {
             j = 0;
-            if(i == 1 && teenager(str[i])) //da scrivere per la questione 10 to 19
-            {
-                final_split(str + 1, 2);
-                i++;
-            }
-            else
+            temp = malloc(4);
+            while (j < 3)
             {
                 temp[j] = str[j + i];
                 j++;
-                while (j < ft_strlen(str) - i)
-                {
-                    temp[j] = '0';
-                    j++;
-                }
             }
             temp[j] = '\0';
-            parse_to_search(temp);
-        }
-        i++;
-        free(temp);
-    }
-}
-
-void split_str(char *str)
-{
-    int i;
-    int j;
-    char *temp;
-
-    i = ft_strlen(str) % 3;
-    while (str[i] != '\0')
-    {
-        temp = (char *)malloc(ft_strlen(str) - i);
-        j = 0;
-        while (j < 3)
-        {
-            temp[j] = str[j + i];
-            j++;
-        }
-        while (j < ft_strlen(str) - i)
-        {
-            temp[j] = '0';
-            j++;
-        }
-        temp[j] = '\0';
-        read_num_threesome(temp);
-        i = i + 3;
-        free(temp);
-    }
-}
-
-void find_head(char *str)
-{
-    int i;
-    int j;
-    char *first;
-    j = 0;
-    i = ft_strlen(str) % 3;
-    first = (char *)malloc(ft_strlen(str) + 1);
-    if (i > 0)
-    {
-        while (j < i)
-        {
-            first[j] = str[j];
-            j++;
-        }
-        while (j < ft_strlen(str))
-        {
-            first[j] = '0';
-            j++;
+            i += 3;
+            distance = ft_strlen(str) - i;
+            subdivide(temp);
+            if (distance != 0 && ft_strcmp("000", temp))
+                printf("distanza: %s\n", (associate_base_ten(distance))); 
         }
     }
-    first[j] = '\0';
-
-    if (!(first[0] != '1' && first[1] != '0'))
+    if (ft_strlen(str) % 3 == 1)
     {
-        parse_to_search(first);
-    } 
-    if(ft_strlen(first) > 0)
-        split_head(first);
-}
-
-void split_head(char *str)
-{
-    if (str[0] != '1' && str[1] != '0')
-    {
-        int i;
-        int j;
-        char *temp;
-
-        i = 0;
-        while (i < 2)
-        {
-            temp = (char *)malloc(ft_strlen(str) - i);
-            j = 0;
-            temp[j] = str[j + i];
-            j++;
-            while (j < ft_strlen(str) - i)
-            {
-                temp[j] = '0';
-                j++;
-            }
-            temp[j] = '\0';
-            parse_to_search(temp);
-            free(temp);
-            i++;
-        }
+        temp = malloc(2);
+        temp[0] = str[0];
+        temp[1] = '\0';
+        str++;
+        distance = ft_strlen(str);
+        subdivide(temp);
+        if (distance != 0)
+            printf("distanza: %s\n", (associate_base_ten(distance))); 
+        divide_string(str);
     }
-}
-
-void parse_to_search(char *str)
-{
-    if (ft_strlen(str) > 1)
+    if (ft_strlen(str) % 3 == 2)
     {
-        int i;
-        int j;
-
-        j = 1;
-        i = 0;
-        while (str[i] != '0')
-            i++;
-        char *dec = (char *)malloc(i + 1);
-        char *zeros = (char *)malloc(ft_strlen(str) - i + 2);
-        zeros[0] = '1';
-        while (str[i] != '\0')
+        temp = malloc(3);
+        if (i == 0 && str[i] == '1')
         {
-            zeros[j] = str[i];
-            i++;
-            j++;
+            if (!str_is_zero(unite_two(str[i], str[i + 1])))
+                printf("num : %s\n",  unite_two(str[i], str[i + 1]));
+            distance = ft_strlen(str + 2);
+            if (distance != 0)
+                printf("distanza: %s\n", (associate_base_ten(distance))); 
         }
-        zeros[j] = '\0';
-        i = 0;
-        while (str[i] != '0')
+        else
         {
-            dec[i] = str[i];
-            i++;
+            temp[0] = str[0];
+            temp[1] = str[1];
+            temp[2] = '\0';
+            distance = ft_strlen(str + 2);
+            subdivide(temp);
+            if (distance != 0)
+                printf("distanza: %s\n", (associate_base_ten(distance))); 
         }
-        dec[i] = '\0';
-        ft_putstr(dec);
-        ft_putchar('-');
-        ft_putstr(zeros);
-        ft_putchar('\n');
-        free(dec);
-        free(zeros);
+        str += 2;
+        divide_string(str);
     }
-    else 
-        ft_putstr(str);
 }
