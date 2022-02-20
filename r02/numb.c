@@ -73,6 +73,7 @@ void    subdivide(char *str)
         {
             if (!str_is_zero(unite_two(str[i], str[i + 1])))
                 printf("num : %s\n",  unite_two(str[i], str[i + 1]));
+            break;
         }
         else
         {
@@ -149,4 +150,15 @@ void    divide_string(char *str)
         str += 2;
         divide_string(str);
     }
+}
+
+int	ft_str_is_numeric(char *str)
+{
+	while (*str != '\0')
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
+	}
+	return (1);
 }

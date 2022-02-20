@@ -12,5 +12,6 @@ char *unite_two(char c1, char c2);
 int ft_strlen(char *str);
 void ft_putstr(char *str);
 int	ft_strcmp(char *s1, char *s2);
+int	ft_str_is_numeric(char *str);
 
 #endif
